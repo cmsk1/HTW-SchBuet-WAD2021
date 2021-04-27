@@ -5,8 +5,12 @@
     <title>AdViz</title>
 
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/ol.css" rel="stylesheet">
+    <script src="js/ol.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/adviz.js"></script>
 </head>
-<body>
+<body onload="initAdviz()">
 
 <header class="header">
         <div class="header-logo">
@@ -51,8 +55,8 @@
             </table>
         </aside>
 
-        <div class="col map contentbox">
-            <span>MAP</span>
+        <div class="col contentbox">
+            <div id="map"></div>
         </div>
     </div>
 
