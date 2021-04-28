@@ -13,10 +13,10 @@
 <body onload="initAdviz()">
 
 <header class="header">
-        <div class="header-logo">
-            <img src="images/map-marked-alt-solid.svg" alt="" width="30" height="24">
-            <span>AdViz</span>
-        </div>
+    <div class="header-logo">
+        <img src="images/map-marked-alt-solid.svg" alt="" width="30" height="24">
+        <span>AdViz</span>
+    </div>
 </header>
 
 <main>
@@ -35,24 +35,12 @@
 
     <div class="row">
         <aside class="col side-list contentbox">
-            <table>
-                <thead>
-                <tr>
-                    <th>Addresses</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Michael Müller</td>
-                </tr>
-                <tr>
-                    <td>Max Mustermann</td>
-                </tr>
-                <tr>
-                    <td>Jane Doe</td>
-                </tr>
-                </tbody>
-            </table>
+            <h3>Addresses</h3>
+            <ul>
+                <li>Michael Müller</li>
+                <li>Max Mustermann</li>
+                <li>Jane Doe</li>
+            </ul>
         </aside>
 
         <div class="col contentbox">
@@ -63,16 +51,65 @@
 
 </main>
 
-<section class="popup login">
+<hr>
+<small class="section-description">Login-Screen</small>
 
+<section class="popup contentbox login">
+    <form>
+        <div class="popup-header">
+            <h3>Login</h3>
+        </div>
+        <div class="popup-content">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br>
+            <label for="pwd">Password:</label><br>
+            <input type="password" id="pwd" name="pwd" required><br><br>
+        </div>
+        <div class="popup-footer">
+            <input type="submit" class="btn" value="Login"/>
+        </div>
+    </form>
 </section>
 
-<section class="popup login">
+<hr>
+<small class="section-description">Add-Contact-Screen</small>
 
-</section>
+<section class="popup contentbox add">
+    <form>
+        <div class="popup-header">
+            <h3>Add-Contact</h3>
+        </div>
+        <div class="popup-content">
+            <label for="firstName">First name:</label><br>
+            <input type="text" id="firstName" name="firstName" required><br>
+            <label for="lastName">Last name:</label><br>
+            <input type="text" id="lastName" name="lastName" required><br>
+            <label for="street">Street & Number:</label><br>
+            <input type="text" id="street" name="street" required><br>
+            <label for="zip">ZIP:</label><br>
+            <input type="text" id="zip" name="zip" required><br>
+            <label for="city">City:</label><br>
+            <input type="text" id="city" name="city" required><br>
+            <label for="state">State:</label><br>
+            <input type="text" id="state" name="state"><br>
+            <label for="country">Country:</label><br>
+            <input type="text" id="country" name="country" required><br>
 
-<section class="popup add">
+            <label for="privat">Privat:</label><br>
+            <input type="checkbox" id="privat" name="privat" required checked><br>
 
+            <label for="owner">Owner:</label><br>
+            <select name="owner" id="owner">
+                <option value="self" selected>Self</option>
+                <option value="normalo">Normalo</option>
+            </select>
+
+            <br>
+        </div>
+        <div class="popup-footer">
+            <button type="submit" class="btn">Save</button>
+        </div>
+    </form>
 </section>
 
 <section class="popup edit">
