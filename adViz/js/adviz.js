@@ -22,8 +22,8 @@ function initAdviz() {
     addPseudoUser({
         firstName: 'Max',
         lastName: 'Mustermann',
-        lat: 52.39748500230898,
-        lon: 13.051048860558936,
+        lat: 52.563209103963535,
+        lon: 13.359976549887557,
         isPublic: false
     });
 
