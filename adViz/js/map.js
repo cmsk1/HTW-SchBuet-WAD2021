@@ -20,8 +20,8 @@ function createMap() {
     });
 
     let view = new ol.View({
-        center: latlon(51.96164979074686, 10.218169661995162),
-        zoom: 6,
+        center: latlon(52.519970187378384, 13.40615345902602),
+        zoom: 12,
         minZoom: 4
     });
     

@@ -107,13 +107,51 @@
             <br>
         </div>
         <div class="popup-footer">
-            <button type="submit" class="btn">Save</button>
+            <button type="submit" class="btn">Add</button>
         </div>
     </form>
 </section>
 
-<section class="popup edit">
+<hr>
+<small class="section-description">Update/Delete-Contact-Screen</small>
 
+<section class="popup contentbox edit">
+    <form>
+        <div class="popup-header">
+            <h3>Update-Contact</h3>
+        </div>
+        <div class="popup-content">
+            <label for="u-firstName">First name:</label><br>
+            <input type="text" id="u-firstName" name="firstName" value="Klaus" required><br>
+            <label for="u-lastName">Last name:</label><br>
+            <input type="text" id="u-lastName" name="lastName" value="Haber" required><br>
+            <label for="u-street">Street & Number:</label><br>
+            <input type="text" id="u-street" name="street" value="Köpenicker Straße 15" required><br>
+            <label for="u-zip">ZIP:</label><br>
+            <input type="text" id="u-zip" name="zip" value="10997" required><br>
+            <label for="u-city">City:</label><br>
+            <input type="text" id="u-city" name="city" value="Berlin" required><br>
+            <label for="u-state">State:</label><br>
+            <input type="text" id="u-state" name="state" value="Berlin"><br>
+            <label for="u-country">Country:</label><br>
+            <input type="text" id="u-country" name="country" value="Germany" required><br>
+
+            <label for="u-privat">Privat:</label><br>
+            <input type="checkbox" id="u-privat" name="privat" required><br>
+
+            <label for="u-owner">Owner:</label><br>
+            <select name="owner" id="u-owner">
+                <option value="self">Self</option>
+                <option value="normalo" selected>Normalo</option>
+            </select>
+
+            <br>
+        </div>
+        <div class="popup-footer">
+            <button type="submit" class="btn">Save</button>
+            <button class="btn">Delete</button>
+        </div>
+    </form>
 </section>
 
 </body>
