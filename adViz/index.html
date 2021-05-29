@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>AdViz</title>
-
     <link href="css/style.css" rel="stylesheet">
     <link href="css/ol.css" rel="stylesheet">
     <script src="js/ol.js"></script>
-    <script src="js/map.js"></script>
     <script src="js/adviz.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/backend.js"></script>
+    <script src="js/utils.js"></script>
 </head>
 <body onload="initAdviz()">
 
@@ -19,43 +20,8 @@
     </div>
 </header>
 
-<main>
-
-    <nav>
-        <button class="btn">
-            Show my contacts
-        </button>
-        <button class="btn">
-            Show all contacts
-        </button>
-        <button class="btn">
-            Add new contact
-        </button>
-    </nav>
-
-    <div class="row">
-        <aside class="col side-list contentbox">
-            <h3>Contacts</h3>
-            <ul>
-                <li>Michael Müller</li>
-                <li>Max Mustermann</li>
-                <li>Jane Doe</li>
-            </ul>
-        </aside>
-
-        <div class="col contentbox">
-            <div id="map"></div>
-        </div>
-    </div>
-
-
-</main>
-
-<hr>
-<small class="section-description">Login-Screen</small>
-
-<section class="popup contentbox login">
-    <form>
+<div id="login" class="popup contentbox login">
+    <form onsubmit="return handleLogin(event)">
         <div class="popup-header">
             <h3>Login</h3>
         </div>
@@ -69,13 +35,27 @@
             <input type="submit" class="btn" value="Login"/>
         </div>
     </form>
-</section>
+</div>
 
-<hr>
-<small class="section-description">Add-Contact-Screen</small>
+<div id="contacts" class="logged" style="display: none">
+    <nav>
+        <button class="btn">Show my contacts</button>
+        <button class="btn">Show all contacts</button>
+        <button class="btn">Add new contact</button>
+    </nav>
+    <div class="row">
+        <aside class="col side-list contentbox">
+            <h3>Contacts</h3>
+            <ul id="name-list"></ul>
+        </aside>
+        <div class="col contentbox">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
 
-<section class="popup contentbox add">
-    <form>
+<div id="add-contact" class="logged popup contentbox add" style="display: none">
+    <form onsubmit="return handleAdd(event)">
         <div class="popup-header">
             <h3>Add-Contact</h3>
         </div>
@@ -94,28 +74,22 @@
             <input type="text" id="state" name="state"><br>
             <label for="country">Country:</label><br>
             <input type="text" id="country" name="country"><br>
-
             <label for="privat">Privat:</label><br>
             <input type="checkbox" id="privat" name="privat" checked><br>
-
             <label for="owner">Owner:</label><br>
             <select name="owner" id="owner">
                 <option value="self" selected>Self</option>
                 <option value="normalo">Normalo</option>
             </select>
-
             <br>
         </div>
         <div class="popup-footer">
             <button type="submit" class="btn">Add</button>
         </div>
     </form>
-</section>
+</div>
 
-<hr>
-<small class="section-description">Update/Delete-Contact-Screen</small>
-
-<section class="popup contentbox edit">
+<div id="update-contact" class="logged popup contentbox edit" style="display: none">
     <form>
         <div class="popup-header">
             <h3>Update-Contact</h3>
@@ -135,16 +109,13 @@
             <input type="text" id="u-state" name="state" value="Berlin"><br>
             <label for="u-country">Country:</label><br>
             <input type="text" id="u-country" name="country" value="Germany"><br>
-
             <label for="u-privat">Privat:</label><br>
             <input type="checkbox" id="u-privat" name="privat"><br>
-
             <label for="u-owner">Owner:</label><br>
             <select name="owner" id="u-owner">
                 <option value="self">Self</option>
                 <option value="normalo" selected>Normalo</option>
             </select>
-
             <br>
         </div>
         <div class="popup-footer">
@@ -152,7 +123,7 @@
             <button class="btn">Delete</button>
         </div>
     </form>
-</section>
+</div>
 
 </body>
 </html>
