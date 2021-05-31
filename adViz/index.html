@@ -56,7 +56,7 @@
 
 <div class="popup-container" style="display: none" id="add-contact">
     <div class="popup contentbox add center">
-        <form onsubmit="return handleAdd(event)">
+        <form>
             <div class="popup-header">
                 <h3 id="popup-header-text">Add Contact</h3>
             </div>
@@ -85,9 +85,10 @@
                 <br>
             </div>
             <div class="popup-footer">
-                <button type="submit" class="btn" id="btn-add-contact" style="display: none">Add</button>
-                <button type="submit" class="btn" id="btn-update-contact" style="display: none">Update</button>
-                <button onclick="closePopup()" class="btn btn-secondary">Close</button>
+                <button type="submit" onsubmit="handleAdd(event)" class="btn" id="btn-add-contact" style="display: none">Add</button>
+                <button type="submit" onsubmit="updateContact()" class="btn" id="btn-update-contact" style="display: none">Update</button>
+                <button type="submit" onsubmit="deleteContact()" class="btn btn-danger" id="btn-delete-contact" style="display: none">Delete</button>
+                <button type="button" onclick="closePopup()" class="btn btn-secondary">Close</button>
             </div>
         </form>
     </div>

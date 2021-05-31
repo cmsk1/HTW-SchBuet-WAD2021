@@ -1,6 +1,8 @@
 let users = {};
 let contacts = {};
 
+let selectedContact = null;
+
 function initAdviz() {
     createMap();
 
@@ -110,7 +112,7 @@ function updateContactList() {
 
     for (let contactId in contacts) {
         let contact = contacts[contactId];
-        namesEl.innerHTML += `<li>${contact.firstName} ${contact.lastName}</li>`;
+        namesEl.innerHTML += `<li data-contact="${contactId}" class="contact-item">${contact.firstName} ${contact.lastName}</li>`;
         let pos = latlon(contact.lat, contact.lon);
 
         let marker = new ol.Feature({
@@ -118,6 +120,17 @@ function updateContactList() {
             contactPos: pos
         });
         markers.addFeature(marker);
+    }
+
+    // Set Onclick events
+    const ul = document.getElementById('name-list');
+    const listItems = ul.getElementsByTagName('li');
+
+    for (let i = 0; i <= listItems.length - 1; i++) {
+        console.log(listItems[i].dataset.contact);
+        listItems[i].onclick = function () {
+            editContact(contacts[listItems[i].dataset.contact])
+        }
     }
 }
 
@@ -130,10 +143,12 @@ function openPopup(edit) {
     if (!edit) {
         document.getElementById('popup-header-text').innerText = 'Add Contact';
         document.getElementById('btn-update-contact').style.display = 'none';
+        document.getElementById('btn-delete-contact').style.display = 'none';
         document.getElementById('btn-add-contact').style.display = 'inline-block';
     } else {
         document.getElementById('popup-header-text').innerText = 'Update Contact';
         document.getElementById('btn-update-contact').style.display = 'inline-block';
+        document.getElementById('btn-delete-contact').style.display = 'inline-block';
         document.getElementById('btn-add-contact').style.display = 'none';
     }
     let popupDiv = document.getElementById('add-contact');
@@ -143,4 +158,18 @@ function openPopup(edit) {
 function closePopup() {
     let popupDiv = document.getElementById('add-contact');
     popupDiv.style.display = "none";
+}
+
+function editContact(contact) {
+    this.selectedContact = contact;
+
+    openPopup(true);
+}
+
+function deleteContact() {
+
+}
+
+function updateContact() {
+
 }
