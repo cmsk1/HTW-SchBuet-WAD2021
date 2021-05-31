@@ -41,7 +41,7 @@
     <nav>
         <button class="btn">Show my contacts</button>
         <button class="btn">Show all contacts</button>
-        <button class="btn">Add new contact</button>
+        <button class="btn" onclick="openPopup()">Add new contact</button>
     </nav>
     <div class="row">
         <aside class="col side-list contentbox">
@@ -54,45 +54,48 @@
     </div>
 </div>
 
-<div id="add-contact" class="logged popup contentbox add" style="display: none">
-    <form onsubmit="return handleAdd(event)">
-        <div class="popup-header">
-            <h3>Add-Contact</h3>
-        </div>
-        <div class="popup-content">
-            <label for="firstName">First name:</label><br>
-            <input type="text" id="firstName" name="firstName" required><br>
-            <label for="lastName">Last name:</label><br>
-            <input type="text" id="lastName" name="lastName" required><br>
-            <label for="street">Street & Number:</label><br>
-            <input type="text" id="street" name="street" required><br>
-            <label for="zip">ZIP:</label><br>
-            <input type="text" id="zip" name="zip" required><br>
-            <label for="city">City:</label><br>
-            <input type="text" id="city" name="city" required><br>
-            <label for="state">State:</label><br>
-            <input type="text" id="state" name="state"><br>
-            <label for="country">Country:</label><br>
-            <input type="text" id="country" name="country"><br>
-            <label for="privat">Privat:</label><br>
-            <input type="checkbox" id="privat" name="privat" checked><br>
-            <label for="owner">Owner:</label><br>
-            <select name="owner" id="owner">
-                <option value="self" selected>Self</option>
-                <option value="normalo">Normalo</option>
-            </select>
-            <br>
-        </div>
-        <div class="popup-footer">
-            <button type="submit" class="btn">Add</button>
-        </div>
-    </form>
+<div class="popup-container" style="display: none" id="add-contact">
+    <div class="popup contentbox add center">
+        <form onsubmit="return handleAdd(event)">
+            <div class="popup-header">
+                <h3 id="popup-header-text">Add Contact</h3>
+            </div>
+            <div class="popup-content">
+                <label for="firstName">First name:</label><br>
+                <input type="text" id="firstName" name="firstName" required><br>
+                <label for="lastName">Last name:</label><br>
+                <input type="text" id="lastName" name="lastName" required><br>
+                <label for="street">Street & Number:</label><br>
+                <input type="text" id="street" name="street" required><br>
+                <label for="zip">ZIP:</label><br>
+                <input type="text" id="zip" name="zip" required><br>
+                <label for="city">City:</label><br>
+                <input type="text" id="city" name="city" required><br>
+                <label for="state">State:</label><br>
+                <input type="text" id="state" name="state"><br>
+                <label for="country">Country:</label><br>
+                <input type="text" id="country" name="country"><br>
+                <label for="privat">Privat:</label><br>
+                <input type="checkbox" id="privat" name="privat" checked><br>
+                <label for="owner">Owner:</label><br>
+                <select name="owner" id="owner">
+                    <option value="self" selected>Self</option>
+                    <option value="normalo">Normalo</option>
+                </select>
+                <br>
+            </div>
+            <div class="popup-footer">
+                <button type="submit" class="btn">Add</button>
+                <button onclick="closePopup()" class="btn btn-secondary">Close</button>
+            </div>
+        </form>
+    </div>
 </div>
-
+<!--
 <div id="update-contact" class="logged popup contentbox edit" style="display: none">
     <form>
         <div class="popup-header">
-            <h3>Update-Contact</h3>
+            <h3>Update Contact</h3>
         </div>
         <div class="popup-content">
             <label for="u-firstName">First name:</label><br>
@@ -124,6 +127,6 @@
         </div>
     </form>
 </div>
-
+-->
 </body>
 </html>

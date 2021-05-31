@@ -125,3 +125,13 @@ function addLoginUser(desc) {
     let user = deepCopy(desc);
     users[user.username] = user;
 }
+
+function openPopup() {
+    let popupDiv = document.getElementById('add-contact');
+    popupDiv.style.display = "block";
+}
+
+function closePopup() {
+    let popupDiv = document.getElementById('add-contact');
+    popupDiv.style.display = "none";
+}
