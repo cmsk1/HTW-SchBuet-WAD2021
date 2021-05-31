@@ -72,10 +72,12 @@ nav {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    min-width: 65px;
     background-color: #007BFF;
     border: 0;
     margin: 4px;
     color: white;
+    cursor: pointer;
     padding: 9px;
     padding-left: 12px;
     padding-right: 12px;
@@ -91,11 +93,36 @@ nav {
     transition: background 0.3s 0s ease;
 }
 
+.btn-secondary {
+    background-color: #5a5a5a;
+}
+
+.btn-secondary:hover {
+    background-color: #505050;
+}
+
+.btn-danger {
+    background-color: #db0707;
+}
+
+.btn-danger:hover {
+    background-color: #b80707;
+}
+
+.btn:disabled {
+    background: #d5d5d5;
+    cursor: not-allowed;
+}
+
+input:disabled {
+    background: #e8e8e8;
+    cursor: not-allowed;
+}
+
 .side-list {
     flex: 0 0 250px;
     padding: 1em;
 }
-
 
 .side-list h3 {
     margin-top: 0;
@@ -178,5 +205,38 @@ nav {
     padding-left: 15px;
     padding-bottom: 15px;
     margin-top: 20px;
+}
+
+.center {
+    margin: auto;
+    top: 50%;
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+.popup-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    position: fixed;
+    margin: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#welcome-msg {
+    padding-left: 10px;
+}
+
+.btn-navbar {
+    float: right;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.text-secondary {
+    color: gray;
 }
 
