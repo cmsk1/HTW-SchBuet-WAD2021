@@ -91,11 +91,11 @@ nav {
     transition: background 0.3s 0s ease;
 }
 
-.btn-secondary{
+.btn-secondary {
     background-color: #5a5a5a;
 }
 
-.btn-secondary:hover{
+.btn-secondary:hover {
     background-color: #505050;
 }
 
@@ -187,14 +187,16 @@ nav {
     padding-bottom: 15px;
     margin-top: 20px;
 }
+
 .center {
     margin: auto;
     top: 50%;
     -ms-transform: translate(0, -50%);
     transform: translate(0, -50%);
 }
+
 .popup-container {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
     position: fixed;
     margin: 0;

@@ -3,7 +3,7 @@ let contacts = {};
 
 function initAdviz() {
     createMap();
-    
+
     addLoginUser({
         username: 'admina',
         password: '1234',
@@ -58,7 +58,7 @@ function handleLogin(event) {
         let username = event.target.username.value;
         let password = event.target.pwd.value;
         let user = users[username];
-    
+
         if (user != null && user.password === password) {
             setLoggedUser(user);
         } else {
@@ -94,7 +94,7 @@ function setLoggedUser(user) {
     let loginStyle = (user != null) ? 'none' : '';
     let loggedStyle = (user == null) ? 'none' : '';
     loginEl.style.display = loginStyle;
-    
+
     for (let i = 0; i < loggedEls.length; i++) {
         loggedEls.item(i).style.display = loggedStyle;
     }
@@ -126,7 +126,16 @@ function addLoginUser(desc) {
     users[user.username] = user;
 }
 
-function openPopup() {
+function openPopup(edit) {
+    if (!edit) {
+        document.getElementById('popup-header-text').innerText = 'Add Contact';
+        document.getElementById('btn-update-contact').style.display = 'none';
+        document.getElementById('btn-add-contact').style.display = 'inline-block';
+    } else {
+        document.getElementById('popup-header-text').innerText = 'Update Contact';
+        document.getElementById('btn-update-contact').style.display = 'inline-block';
+        document.getElementById('btn-add-contact').style.display = 'none';
+    }
     let popupDiv = document.getElementById('add-contact');
     popupDiv.style.display = "block";
 }

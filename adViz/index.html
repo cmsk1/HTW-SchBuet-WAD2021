@@ -41,7 +41,7 @@
     <nav>
         <button class="btn">Show my contacts</button>
         <button class="btn">Show all contacts</button>
-        <button class="btn" onclick="openPopup()">Add new contact</button>
+        <button class="btn" onclick="openPopup(false)">Add new contact</button>
     </nav>
     <div class="row">
         <aside class="col side-list contentbox">
@@ -85,7 +85,8 @@
                 <br>
             </div>
             <div class="popup-footer">
-                <button type="submit" class="btn">Add</button>
+                <button type="submit" class="btn" id="btn-add-contact" style="display: none">Add</button>
+                <button type="submit" class="btn" id="btn-update-contact" style="display: none">Update</button>
                 <button onclick="closePopup()" class="btn btn-secondary">Close</button>
             </div>
         </form>
