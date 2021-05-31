@@ -2,7 +2,6 @@ let users = {};
 let loggedUser = null;
 
 
-
 function initAdviz() {
     createMap();
 
@@ -24,7 +23,7 @@ function initAdviz() {
         street: 'Wilhelminenhofstraße 47B',
         city: 'Berlin',
         state: 'Berlin',
-        coutry: 'Germany',
+        country: 'Germany',
         zip: '12459',
         lat: 52.45964364393213,
         lon: 13.52383912594944,
@@ -38,7 +37,7 @@ function initAdviz() {
         street: 'Lützowstraße 51H',
         city: 'Berlin',
         state: 'Berlin',
-        coutry: 'Germany',
+        country: 'Germany',
         zip: '10785',
         lat: 52.5059093309401,
         lon: 13.356209023673221,
@@ -52,7 +51,7 @@ function initAdviz() {
         street: 'Brienzer Straße 56',
         city: 'Berlin',
         state: 'Berlin',
-        coutry: 'Germany',
+        country: 'Germany',
         zip: '13407',
         lat: 52.563209103963535,
         lon: 13.359976549887557,
@@ -66,7 +65,7 @@ function initAdviz() {
         street: 'Georgswerder Ring 1',
         city: 'Hamburg',
         state: 'Hamburg',
-        coutry: 'Germany',
+        country: 'Germany',
         zip: '21109',
         lat: 53.515454041624906,
         lon: 10.020539336041693,

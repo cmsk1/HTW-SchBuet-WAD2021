@@ -72,23 +72,16 @@ nav {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    min-width: 65px;
     background-color: #007BFF;
     border: 0;
     margin: 4px;
     color: white;
+    cursor: pointer;
     padding: 9px;
     padding-left: 12px;
     padding-right: 12px;
     margin-left: 0px;
-}
-
-.btn:hover {
-    background-color: #0069d9;
-    cursor: pointer;
-    -webkit-transition: background 0.3s 0s ease;
-    -moz-transition: background 0.3s 0s ease;
-    -o-transition: background 0.3s 0s ease;
-    transition: background 0.3s 0s ease;
 }
 
 .btn-secondary {
@@ -107,11 +100,20 @@ nav {
     background-color: #b80707;
 }
 
+.btn:disabled {
+    background: #d5d5d5;
+    cursor: not-allowed;
+}
+
+input:disabled {
+    background: #e8e8e8;
+    cursor: not-allowed;
+}
+
 .side-list {
     flex: 0 0 250px;
     padding: 1em;
 }
-
 
 .side-list h3 {
     margin-top: 0;
@@ -218,12 +220,14 @@ nav {
 #welcome-msg {
     padding-left: 10px;
 }
+
 .btn-navbar {
     float: right;
     margin-top: 15px;
     margin-right: 10px;
 }
-.text-secondary{
+
+.text-secondary {
     color: gray;
 }
 

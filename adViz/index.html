@@ -23,7 +23,7 @@
 </header>
 
 <div id="login" class="popup contentbox login">
-    <form  onsubmit="handleLogin(event)" method="dialog">
+    <form onsubmit="handleLogin(event)" method="dialog">
         <div class="popup-header">
             <h3>Login</h3>
         </div>
@@ -82,56 +82,20 @@
                 <input type="checkbox" id="privat" name="privat" checked><br>
                 <label for="owner">Owner:</label><br>
                 <select name="owner" id="owner">
-                    <option value="self" selected>Self</option>
-                    <option value="normalo">Normalo</option>
                 </select>
                 <br>
             </div>
             <div class="popup-footer">
                 <button type="submit" name="add" class="btn" id="btn-add-contact" style="display: none">Add</button>
-                <button type="submit" name="update" class="btn" id="btn-update-contact" style="display: none">Update</button>
-                <button type="button" onclick="handleDelete()" class="btn btn-danger" id="btn-delete-contact" style="display: none">Delete</button>
+                <button type="submit" name="update" class="btn" id="btn-update-contact" style="display: none">Update
+                </button>
+                <button type="button" onclick="handleDelete()" class="btn btn-danger" id="btn-delete-contact"
+                        style="display: none">Delete
+                </button>
                 <button type="button" onclick="closePopup()" class="btn btn-secondary">Close</button>
             </div>
         </form>
     </div>
 </div>
-<!--
-<div id="update-contact" class="logged popup contentbox edit" style="display: none">
-    <form>
-        <div class="popup-header">
-            <h3>Update Contact</h3>
-        </div>
-        <div class="popup-content">
-            <label for="u-firstName">First name:</label><br>
-            <input type="text" id="u-firstName" name="firstName" value="Klaus" required><br>
-            <label for="u-lastName">Last name:</label><br>
-            <input type="text" id="u-lastName" name="lastName" value="Haber" required><br>
-            <label for="u-street">Street & Number:</label><br>
-            <input type="text" id="u-street" name="street" value="Köpenicker Straße 15" required><br>
-            <label for="u-zip">ZIP:</label><br>
-            <input type="text" id="u-zip" name="zip" value="10997" required><br>
-            <label for="u-city">City:</label><br>
-            <input type="text" id="u-city" name="city" value="Berlin" required><br>
-            <label for="u-state">State:</label><br>
-            <input type="text" id="u-state" name="state" value="Berlin"><br>
-            <label for="u-country">Country:</label><br>
-            <input type="text" id="u-country" name="country" value="Germany"><br>
-            <label for="u-privat">Privat:</label><br>
-            <input type="checkbox" id="u-privat" name="privat"><br>
-            <label for="u-owner">Owner:</label><br>
-            <select name="owner" id="u-owner">
-                <option value="self">Self</option>
-                <option value="normalo" selected>Normalo</option>
-            </select>
-            <br>
-        </div>
-        <div class="popup-footer">
-            <button type="submit" class="btn">Update</button>
-            <button class="btn">Delete</button>
-        </div>
-    </form>
-</div>
--->
 </body>
 </html>
