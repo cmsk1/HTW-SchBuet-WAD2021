@@ -47,21 +47,36 @@ function createMap() {
     });
 }
 
+function addContactToMap(contact) {
+    let pos = latlon(contact.lat, contact.lon);
+
+    let marker = new ol.Feature({
+        geometry: new ol.geom.Point(pos),
+        contactId: contact.id,
+        contactPos: pos
+    });
+    markers.addFeature(marker);
+}
+
+function clearMap() {
+    markers.clear();
+}
+
 function latlon(lat, lon) {
     return ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857');
 }
 
 function lookupLatLon(address) {
     return new Promise((resolve, reject) => {
-        let query = `${address.street}`;
+        let query = `street=${address.street}&city=${address.city}&country=${address.country}&state=${address.state}&postalcode=${address.zip}`;
         let request = new XMLHttpRequest();
 
         request.onload = () => {
             try {
                 let data = JSON.parse(request.responseText);
 
-                if (data.length !== 1) {
-                    throw new Error('address is ambiguous');
+                if (data.length === 0) {
+                    throw new Error('unknown address');
                 }
                 let entry = data[0];
                 let lat = parseFloat(entry.lat);
@@ -72,7 +87,7 @@ function lookupLatLon(address) {
             }
         };
         request.onerror = reject;
-        request.open('GET', `https://nominatim.openstreetmap.org/search?q=${query}&format=json&polygon=1&addressdetails=1`, true);
+        request.open('GET', `https://nominatim.openstreetmap.org/search?${query}&format=json&polygon=1&addressdetails=1&accept-language=en-US`, true);
         request.send();    
     });
 }

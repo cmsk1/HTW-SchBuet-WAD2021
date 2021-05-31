@@ -214,3 +214,16 @@ nav {
     top: 0;
     left: 0;
 }
+
+#welcome-msg {
+    padding-left: 10px;
+}
+.btn-navbar {
+    float: right;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+.text-secondary{
+    color: gray;
+}
+

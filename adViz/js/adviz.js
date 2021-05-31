@@ -1,7 +1,7 @@
 let users = {};
-let contacts = {};
+let loggedUser = null;
 
-let selectedContact = null;
+
 
 function initAdviz() {
     createMap();
@@ -21,73 +21,70 @@ function initAdviz() {
     addContact({
         firstName: 'Andre',
         lastName: 'Domstet',
+        street: 'Wilhelminenhofstraße 47B',
+        city: 'Berlin',
+        state: 'Berlin',
+        coutry: 'Germany',
+        zip: '12459',
         lat: 52.45964364393213,
         lon: 13.52383912594944,
-        isPublic: true,
+        isPrivate: true,
         owner: 'normalo'
     });
 
     addContact({
         firstName: 'Michael',
         lastName: 'Müller',
+        street: 'Lützowstraße 51H',
+        city: 'Berlin',
+        state: 'Berlin',
+        coutry: 'Germany',
+        zip: '10785',
         lat: 52.5059093309401,
         lon: 13.356209023673221,
-        isPublic: false,
+        isPrivate: false,
         owner: 'normalo'
     });
 
     addContact({
         firstName: 'Max',
         lastName: 'Mustermann',
+        street: 'Brienzer Straße 56',
+        city: 'Berlin',
+        state: 'Berlin',
+        coutry: 'Germany',
+        zip: '13407',
         lat: 52.563209103963535,
         lon: 13.359976549887557,
-        isPublic: false,
+        isPrivate: false,
         owner: 'admina'
     });
 
     addContact({
         firstName: 'Jane',
         lastName: 'Doe',
+        street: 'Georgswerder Ring 1',
+        city: 'Hamburg',
+        state: 'Hamburg',
+        coutry: 'Germany',
+        zip: '21109',
         lat: 53.515454041624906,
         lon: 10.020539336041693,
-        isPublic: true,
+        isPrivate: true,
         owner: 'admina'
     });
 }
 
 function handleLogin(event) {
-    try {
-        let username = event.target.username.value;
-        let password = event.target.pwd.value;
-        let user = users[username];
+    let username = event.target.username.value;
+    let password = event.target.pwd.value;
+    let user = users[username];
 
-        if (user != null && user.password === password) {
-            setLoggedUser(user);
-        } else {
-            throw new Error('invalid login');
-        }
-    } catch (err) {
+    if (user != null && user.password === password) {
+        setLoggedUser(user);
+    } else {
         alert('Die Anmeldung ist fehlgeschlagen!');
     }
-    return false;
-}
-
-function handleAdd(event) {
-    try {
-        let firstName = event.target.firstName.value;
-        let lastName = event.target.lastName.value;
-        let street = event.target.street.value;
-        let zip = event.target.zip.value;
-        let city = event.target.city.value;
-        let state = event.target.state.value;
-        let country = event.target.country.value;
-        let privat = event.target.privat.checked;
-        let owner = event.target.owner.value;
-        console.log(firstName, lastName, street, zip, city, state, country, privat, owner);
-    } catch (err) {
-        alert('Der Kontakt konnte nicht hinzugefügt werden');
-    }
-    return false;
 }
 
 function setLoggedUser(user) {
@@ -97,40 +94,41 @@ function setLoggedUser(user) {
     let loggedStyle = (user == null) ? 'none' : '';
     loginEl.style.display = loginStyle;
 
+    document.getElementById('welcome-msg').innerHTML = "Hallo " + user.username + "!";
+
     for (let i = 0; i < loggedEls.length; i++) {
         loggedEls.item(i).style.display = loggedStyle;
     }
-    contacts = listContacts(user);
-    updateContactList();
+    loggedUser = user;
+    updateContactView();
     map.updateSize();
 }
 
-function updateContactList() {
-    let namesEl = document.getElementById('name-list');
-    namesEl.innerHTML = '';
-    markers.clear();
+function logout() {
+    let loginEl = document.getElementById('login');
+    let loggedEls = document.getElementsByClassName('logged');
+    let loginStyle = '';
+    let loggedStyle = 'none';
+    loginEl.style.display = loginStyle;
+
+    for (let i = 0; i < loggedEls.length; i++) {
+        loggedEls.item(i).style.display = loggedStyle;
+    }
+    document.getElementById('pwd').value = ''
+    document.getElementById('username').value = ''
+    loggedUser = null;
+}
+
+function updateContactView(filter) {
+    fetchContacts();
+    let contacts = listContacts(filter);
+    clearContactList();
+    clearMap();
 
     for (let contactId in contacts) {
         let contact = contacts[contactId];
-        namesEl.innerHTML += `<li data-contact="${contactId}" class="contact-item">${contact.firstName} ${contact.lastName}</li>`;
-        let pos = latlon(contact.lat, contact.lon);
-
-        let marker = new ol.Feature({
-            geometry: new ol.geom.Point(pos),
-            contactPos: pos
-        });
-        markers.addFeature(marker);
-    }
-
-    // Set Onclick events
-    const ul = document.getElementById('name-list');
-    const listItems = ul.getElementsByTagName('li');
-
-    for (let i = 0; i <= listItems.length - 1; i++) {
-        console.log(listItems[i].dataset.contact);
-        listItems[i].onclick = function () {
-            editContact(contacts[listItems[i].dataset.contact])
-        }
+        addContactToList(contact);
+        addContactToMap(contact);
     }
 }
 
@@ -139,37 +137,6 @@ function addLoginUser(desc) {
     users[user.username] = user;
 }
 
-function openPopup(edit) {
-    if (!edit) {
-        document.getElementById('popup-header-text').innerText = 'Add Contact';
-        document.getElementById('btn-update-contact').style.display = 'none';
-        document.getElementById('btn-delete-contact').style.display = 'none';
-        document.getElementById('btn-add-contact').style.display = 'inline-block';
-    } else {
-        document.getElementById('popup-header-text').innerText = 'Update Contact';
-        document.getElementById('btn-update-contact').style.display = 'inline-block';
-        document.getElementById('btn-delete-contact').style.display = 'inline-block';
-        document.getElementById('btn-add-contact').style.display = 'none';
-    }
-    let popupDiv = document.getElementById('add-contact');
-    popupDiv.style.display = "block";
-}
-
-function closePopup() {
-    let popupDiv = document.getElementById('add-contact');
-    popupDiv.style.display = "none";
-}
-
-function editContact(contact) {
-    this.selectedContact = contact;
-
-    openPopup(true);
-}
-
-function deleteContact() {
-
-}
-
-function updateContact() {
-
+function filterOwnedContacts(contact) {
+    return contact.owner === loggedUser.username;
 }

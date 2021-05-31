@@ -7,6 +7,7 @@
     <link href="css/ol.css" rel="stylesheet">
     <script src="js/ol.js"></script>
     <script src="js/adviz.js"></script>
+    <script src="js/contact-list.js"></script>
     <script src="js/map.js"></script>
     <script src="js/backend.js"></script>
     <script src="js/utils.js"></script>
@@ -18,10 +19,11 @@
         <img src="images/map-marked-alt-solid.svg" alt="" width="30" height="24">
         <span>AdViz</span>
     </div>
+    <button class="btn btn-navbar logged" type="button" style="display: none" onclick="logout()">Logout</button>
 </header>
 
 <div id="login" class="popup contentbox login">
-    <form onsubmit="return handleLogin(event)">
+    <form  onsubmit="handleLogin(event)" method="dialog">
         <div class="popup-header">
             <h3>Login</h3>
         </div>
@@ -32,15 +34,16 @@
             <input type="password" id="pwd" name="pwd" required><br><br>
         </div>
         <div class="popup-footer">
-            <input type="submit" class="btn" value="Login"/>
+            <button type="submit" name="login" class="btn">Login</button>
         </div>
     </form>
 </div>
 
 <div id="contacts" class="logged" style="display: none">
+    <h3 id="welcome-msg">Hallo</h3>
     <nav>
-        <button class="btn">Show my contacts</button>
-        <button class="btn">Show all contacts</button>
+        <button class="btn" onclick="updateContactView(filterOwnedContacts)">Show my contacts</button>
+        <button class="btn" onclick="updateContactView()">Show all contacts</button>
         <button class="btn" onclick="openPopup(false)">Add new contact</button>
     </nav>
     <div class="row">
@@ -56,7 +59,7 @@
 
 <div class="popup-container" style="display: none" id="add-contact">
     <div class="popup contentbox add center">
-        <form>
+        <form onsubmit="handleUserForm(event)" method="dialog">
             <div class="popup-header">
                 <h3 id="popup-header-text">Add Contact</h3>
             </div>
@@ -85,9 +88,9 @@
                 <br>
             </div>
             <div class="popup-footer">
-                <button type="submit" onsubmit="handleAdd(event)" class="btn" id="btn-add-contact" style="display: none">Add</button>
-                <button type="submit" onsubmit="updateContact()" class="btn" id="btn-update-contact" style="display: none">Update</button>
-                <button type="submit" onsubmit="deleteContact()" class="btn btn-danger" id="btn-delete-contact" style="display: none">Delete</button>
+                <button type="submit" name="add" class="btn" id="btn-add-contact" style="display: none">Add</button>
+                <button type="submit" name="update" class="btn" id="btn-update-contact" style="display: none">Update</button>
+                <button type="button" onclick="handleDelete()" class="btn btn-danger" id="btn-delete-contact" style="display: none">Delete</button>
                 <button type="button" onclick="closePopup()" class="btn btn-secondary">Close</button>
             </div>
         </form>

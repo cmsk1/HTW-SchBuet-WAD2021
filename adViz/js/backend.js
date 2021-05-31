@@ -1,25 +1,48 @@
+let contacts = {};
+
 function addContact(desc) {
     let contact = deepCopy(desc);
     let contacts = getLocalContacts();
-    let id = `${desc.lat}-${desc.lon}`;
+    let id = hash(`${desc.firstName}-${desc.lastName}-${desc.lat}-${desc.lon}`);
+    contact.id = id;
     contacts[id] = contact;
     setLocalContacts(contacts);
-    return true;
 }
 
-function listContacts(user) {
-    if (user == null) return {};
-    let allContacts = getLocalContacts();
-    let scoped = {};
+function updateContact(contact) {
+    deleteContact(contact.id);
+    addContact(contact);
+}
 
-    for (let contactId in allContacts) {
-        let contact = allContacts[contactId];
+function deleteContact(contactId) {
+    let toDelete = contacts[contactId];
+    let isOwned = (toDelete.owner != loggedUser.username);
 
-        if (contact.isPublic || user.isAdmin || contact.owner === user.username) {
-            scoped[contactId] = contact;
-        }
+    if (isOwned && !loggedUser.isAdmin) {
+        throw new Error('not permitted');
     }
-    return scoped;
+    delete contacts[contactId];
+    setLocalContacts(contacts);
+}
+
+function fetchContacts() {
+    if (loggedUser != null) {
+        let allContacts = getLocalContacts();
+        
+        contacts = filterObj(allContacts, (id, contact) => {
+            let isOwner = (contact.owner === loggedUser.username);
+            return isOwner || !contact.isPrivate || loggedUser.isAdmin;
+        });
+    } else {
+        contacts = {};
+    }
+}
+
+function listContacts(filter) {
+    return filterObj(contacts, (key, contact) => {
+        if (filter == null) return true;
+        return filter(contact)
+    });
 }
 
 /* Local Storage Helper */
