@@ -3,7 +3,7 @@ let contacts = {};
 function addContact(desc) {
     let contact = deepCopy(desc);
     let contacts = getLocalContacts();
-    let id = hash(`${desc.firstName}-${desc.lastName}-${desc.lat}-${desc.lon}`);
+    let id = hash(`${desc.firstName}-${desc.lastName}-${desc.owner}-${desc.lat}-${desc.lon}`);
     contact.id = id;
     contacts[id] = contact;
     setLocalContacts(contacts);

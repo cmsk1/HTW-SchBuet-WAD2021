@@ -84,25 +84,21 @@ async function handleUpdate(event) {
 
 function openPopup(edit) {
     // Set Selection
-    console.log(selectedContact);
     let ownerSelect = document.getElementById('owner');
     ownerSelect.innerHTML = '';
-    let adminaOption = document.createElement('option');
-    let normaloOption = document.createElement('option');
 
-    adminaOption.value = 'admina';
-    normaloOption.value = 'normalo';
+    for (let username in users) {
+        let ownerOption = document.createElement('option');
+        ownerOption.value = username;
 
-    if (loggedUser.username === 'normalo') {
-        adminaOption.innerHTML = 'Admina';
-        normaloOption.innerHTML = 'Self (normalo)';
+        if (username === loggedUser.username) {
+            ownerOption.innerHTML = `Self (${username})`;
+            ownerSelect.appendChild(ownerOption);
+        } else if (loggedUser.isAdmin) {
+            ownerOption.innerHTML = capitalize(username);
+            ownerSelect.appendChild(ownerOption);
+        }
     }
-    if (loggedUser.username === 'admina') {
-        adminaOption.innerHTML = 'Self (admina)';
-        normaloOption.innerHTML = 'Normalo';
-    }
-    ownerSelect.appendChild(adminaOption);
-    ownerSelect.appendChild(normaloOption);
 
     // Change Visibility
     if (!edit) {
