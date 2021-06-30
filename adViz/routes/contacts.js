@@ -12,13 +12,14 @@ router.get('/', function (req, response, next) {
 
     MongoClient.connect(db_conf.url, {useUnifiedTopology: true},
         function (err, client) {
-            if (err) throw err;
+            if (err) {
+                response.sendStatus(400);
+            }
 
             // Filter für nur eigene oder "all contact" setzen
             let filter = {};
             let db = client.db(db_conf.name);
             db.collection("users").findOne({_id: userId}, function (err, result) {
-                console.log(result);
                 if (err) response.sendStatus(400);
                 if (result == null) {
                     response.sendStatus(400);
@@ -34,7 +35,9 @@ router.get('/', function (req, response, next) {
                     }
                     db.collection("contacts").find(filter).toArray(
                         function (err, result) {
-                            if (err) throw err;
+                            if (err) {
+                                response.sendStatus(400);
+                            }
                             client.close();
                             response.status(200).json(result);
                         });
@@ -48,11 +51,15 @@ router.post('/', function (req, response, next) {
 
     MongoClient.connect(db_conf.url, {useUnifiedTopology: true},
         function (err, client) {
-            if (err) throw err;
+            if (err) {
+                response.sendStatus(400);
+            }
             let db = client.db(db_conf.name);
 
             db.collection("contacts").insertOne(data, {ordered: true}, function (err, res) {
-                if (err) throw err;
+                if (err) {
+                    response.sendStatus(400);
+                }
                 client.close();
                 response.location('/contacts/' + res.insertedId)
                 response.sendStatus(201);
@@ -66,11 +73,15 @@ router.put('/:id', function (req, response, next) {
 
     MongoClient.connect(db_conf.url, {useUnifiedTopology: true},
         function (err, client) {
-            if (err) throw err;
+            if (err) {
+                response.sendStatus(400);
+            }
             let db = client.db(db_conf.name);
 
             db.collection("contacts").updateOne({_id: id}, data, function (err, res) {
-                if (err) throw err;
+                if (err) {
+                    response.sendStatus(400);
+                }
                 client.close();
                 response.sendStatus(204);
             });
@@ -82,11 +93,15 @@ router.delete('/:id', function (req, response, next) {
 
     MongoClient.connect(db_conf.url, {useUnifiedTopology: true},
         function (err, client) {
-            if (err) throw err;
+            if (err) {
+                response.sendStatus(400);
+            }
             let db = client.db(db_conf.name);
 
             db.collection("contacts").deleteOne({_id: id}, function (err, res) {
-                if (err) throw err;
+                if (err) {
+                    response.sendStatus(400);
+                }
                 client.close();
                 response.sendStatus(204);
             });

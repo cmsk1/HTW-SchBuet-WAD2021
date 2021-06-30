@@ -52,7 +52,7 @@ function addContactToMap(contact) {
 
     let marker = new ol.Feature({
         geometry: new ol.geom.Point(pos),
-        contactId: contact.id,
+        contactId: contact._id,
         contactPos: pos
     });
     markers.addFeature(marker);
