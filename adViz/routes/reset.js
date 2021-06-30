@@ -1,7 +1,6 @@
 const express = require('express');
-const config = require("../config/mongodb");
 const router = express.Router();
-
+const config = require("../config/mongodb");
 const MongoClient = require('mongodb').MongoClient;
 const db = config.database;
 
