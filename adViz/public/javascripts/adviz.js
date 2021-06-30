@@ -118,6 +118,13 @@ function logout() {
     loggedUser = null;
 }
 
+function resetAllData() {
+    logout();
+
+    fetch(api_base_path + 'reset')
+        .then(response => response.json())
+}
+
 function updateContactView(filter) {
     fetchContacts();
     let contacts = listContacts(filter);
