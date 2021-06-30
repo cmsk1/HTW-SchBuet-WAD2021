@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router();
 const config = require("../config/mongodb");
 const MongoClient = require('mongodb').MongoClient;
-const db = config.database;
+const db_conf = config.database;
 
 /* GET reset data listing.
-* Dies ist eine optionale Funktion und dient nur der einfachen bedienung. Dies ist also keine Anforderung aus dem Beleg 3
+* Diese Funktion ist nicht Teil des dritten Belegs. Sie dient dazu die Daten in der Datenbank schnell auf den Ausgangszustand setzen zu könnn, ohne
+* jedes mal direkt an die DB zu müssen. Es werden alle Daten gelöscht und neu angelegt.
 */
 router.get('/', function (request, response, next) {
-    MongoClient.connect(db.url, {useUnifiedTopology: true},
+    MongoClient.connect(db_conf.url, {useUnifiedTopology: true},
         function (err, client) {
             if (err) throw err;
-            let db = client.db("advizDB");
+            let db = client.db(db_conf.name);
 
             // Drop DB to clean data
             db.dropDatabase();
