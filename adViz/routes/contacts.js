@@ -14,13 +14,18 @@ router.get('/', function (req, response, next) {
         function (err, client) {
             if (err) {
                 response.sendStatus(400);
+                return;
             }
 
             // Filter für nur eigene oder "all contact" setzen
             let filter = {};
             let db = client.db(db_conf.name);
             db.collection("users").findOne({_id: userId}, function (err, result) {
-                if (err) response.sendStatus(400);
+                if (err) {
+                    response.sendStatus(400);
+                    return;
+                }
+
                 if (result == null) {
                     response.sendStatus(400);
                 } else {
@@ -37,6 +42,7 @@ router.get('/', function (req, response, next) {
                         function (err, result) {
                             if (err) {
                                 response.sendStatus(400);
+                                return;
                             }
                             client.close();
                             response.status(200).json(result);
@@ -53,12 +59,14 @@ router.post('/', function (req, response, next) {
         function (err, client) {
             if (err) {
                 response.sendStatus(400);
+                return;
             }
             let db = client.db(db_conf.name);
 
             db.collection("contacts").insertOne(data, {ordered: true}, function (err, res) {
                 if (err) {
                     response.sendStatus(400);
+                    return;
                 }
                 client.close();
                 response.location('/contacts/' + res.insertedId)
@@ -75,12 +83,14 @@ router.put('/:id', function (req, response, next) {
         function (err, client) {
             if (err) {
                 response.sendStatus(400);
+                return;
             }
             let db = client.db(db_conf.name);
 
             db.collection("contacts").updateOne({_id: id}, data, function (err, res) {
                 if (err) {
                     response.sendStatus(400);
+                    return;
                 }
                 client.close();
                 response.sendStatus(204);
@@ -95,12 +105,14 @@ router.delete('/:id', function (req, response, next) {
         function (err, client) {
             if (err) {
                 response.sendStatus(400);
+                return;
             }
             let db = client.db(db_conf.name);
 
             db.collection("contacts").deleteOne({_id: id}, function (err, res) {
                 if (err) {
                     response.sendStatus(400);
+                    return;
                 }
                 client.close();
                 response.sendStatus(204);

@@ -14,6 +14,7 @@ router.post('/', function (req, response, next) {
             function (err, client) {
                 if (err) {
                     response.sendStatus(400);
+                    return;
                 }
                 let db = client.db(db_conf.name);
                 db.collection("users").findOne({username: req.body.username}, function (err, result) {
@@ -38,14 +39,20 @@ router.get('/all', function (req, response, next) {
         function (err, client) {
             if (err) {
                 response.sendStatus(400);
+                return;
             }
             let db = client.db(db_conf.name);
             db.collection("users").find({}).toArray(
                 function (err, result) {
                     if (err) {
                         response.sendStatus(400);
+                        return;
                     }
                     client.close();
+
+                    for (let user of result) {
+                        delete user.password;
+                    }
                     response.status(200).json(result);
                 });
         });
