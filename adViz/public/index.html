@@ -43,8 +43,8 @@
 <div id="contacts" class="logged" style="display: none">
     <h3 id="welcome-msg">Hallo</h3>
     <nav>
-        <button class="btn" onclick="getContacts(loggedUser._id, false)">Show my contacts</button>
-        <button class="btn" onclick="getContacts(loggedUser._id, true)">Show all contacts</button>
+        <button class="btn" onclick="fetchContacts(loggedUser._id, false)">Show my contacts</button>
+        <button class="btn" onclick="fetchContacts(loggedUser._id, true)">Show all contacts</button>
         <button class="btn" onclick="openPopup(false)">Add new contact</button>
     </nav>
     <div class="row">

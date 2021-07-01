@@ -8,14 +8,14 @@ async function deleteContact(contactID) {
         await fetch(`${API_BASE_URL}contacts/${contactID}`, {
             method: 'DELETE',
         });
-        getContacts(loggedUser._id, showPrivate);
+        fetchContacts(loggedUser._id, showAllContacts);
     } catch (err) {
         console.error('Error:', err);
         alert('Es ist ein Fehler aufgetreten!');
     }
 }
 
-async function postContact(body) {
+async function addContact(body) {
     try {
         await fetch(`${API_BASE_URL}contacts/`, {
             method: 'POST',
@@ -24,14 +24,14 @@ async function postContact(body) {
             },
             body: JSON.stringify(body)
         });
-        getContacts(loggedUser._id, showPrivate);
+        fetchContacts(loggedUser._id, showAllContacts);
     } catch (err) {
         console.error('Error:', err);
         alert('Es ist ein Fehler aufgetreten!');
     }
 }
 
-async function putContact(contactID, body) {
+async function updateContact(contactID, body) {
     try {
         await fetch(`${API_BASE_URL}contacts/${contactID}`, {
             method: 'PUT',
@@ -40,29 +40,29 @@ async function putContact(contactID, body) {
             },
             body: JSON.stringify(body)
         });
-        getContacts(loggedUser._id, showPrivate);
+        fetchContacts(loggedUser._id, showAllContacts);
     } catch (err) {
         console.error('Error:', err);
         alert('Es ist ein Fehler aufgetreten!');
     }
 }
 
-async function getContacts(userId, showPrivate) {
-    this.showPrivate = showPrivate;
+async function fetchContacts(userId, showPublic) {
+    showAllContacts = showPublic;
 
     try {
-        let response = await fetch(`${API_BASE_URL}contacts/?userId=${userId}&showPublic=${showPrivate}`, {
+        let response = await fetch(`${API_BASE_URL}contacts/?userId=${userId}&showPublic=${showPublic}`, {
             method: 'GET',
         });
-        let data = await response.json();
-        return data;
+        contacts = await response.json();
+        updateContactViewFromApi(contacts);
     } catch (err) {
         console.error('Error:', err);
         alert('Es ist ein Fehler aufgetreten!');
     }
 }
 
-async function getAllUsers() {
+async function fetchAllUsers() {
     try {
         let response = await fetch(`${API_BASE_URL}users/all/`, {
             method: 'GET',
@@ -98,15 +98,6 @@ async function resetDatabase() {
     } catch (err) {
         console.error('Error:', err);
     }
-}
-
-function addContact(desc) {
-    let contact = deepCopy(desc);
-    postContact(contact).then(r => console.log('Contact added'));
-}
-
-function updateContact(id, contact) {
-    putContact(id, contact).then(r => console.log('Contact updated'));
 }
 
 function listContacts(filter) {

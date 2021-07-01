@@ -1,5 +1,5 @@
 let loggedUser = null;
-let showPrivate = false;
+let showAllContacts = false;
 
 
 function initAdviz() {
@@ -12,7 +12,7 @@ async function handleLogin(event) {
     let data = {username: username, password: password};
 
     await loginRequest(data);
-    await getAllUsers();
+    await fetchAllUsers();
 }
 
 function setLoggedUser(user) {
@@ -28,7 +28,7 @@ function setLoggedUser(user) {
         loggedEls.item(i).style.display = loggedStyle;
     }
     loggedUser = user;
-    getContacts(loggedUser._id, showPrivate).then(r => updateContactViewFromApi(r));
+    fetchContacts(loggedUser._id, showAllContacts);
     map.updateSize();
 }
 
