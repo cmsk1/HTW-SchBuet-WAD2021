@@ -1,4 +1,3 @@
-let users = {};
 let loggedUser = null;
 let showPrivate = false;
 
@@ -7,14 +6,13 @@ function initAdviz() {
     createMap();
 }
 
-function handleLogin(event) {
+async function handleLogin(event) {
     let username = event.target.username.value;
     let password = event.target.pwd.value;
     let data = {username: username, password: password};
 
-    loginRequest(data).then(r =>
-        getAllUsers().then(r2 => {
-        }));
+    await loginRequest(data);
+    await getAllUsers();
 }
 
 function setLoggedUser(user) {
@@ -30,14 +28,14 @@ function setLoggedUser(user) {
         loggedEls.item(i).style.display = loggedStyle;
     }
     loggedUser = user;
-    getContacts(loggedUser._id, showPrivate).then(r =>
-        updateContactViewFromApi(r))
+    getContacts(loggedUser._id, showPrivate).then(r => updateContactViewFromApi(r));
     map.updateSize();
 }
 
 function updateContactViewFromApi(contacts) {
     clearContactList();
     clearMap();
+    
     for (let contact of contacts) {
         addContactToList(contact);
         addContactToMap(contact);
@@ -61,13 +59,5 @@ function logout() {
 
 function resetAllData() {
     logout();
-    fetch(api_base_path + 'reset')
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    resetDatabase();
 }
-
