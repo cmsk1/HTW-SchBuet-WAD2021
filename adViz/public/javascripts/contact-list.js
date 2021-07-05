@@ -2,7 +2,7 @@ let selectedContact = null;
 
 function addContactToList(contact) {
     let nameEl = document.createElement('li');
-    nameEl.dataset.contact = contact.id;
+    nameEl.dataset.contact = contact._id;
     nameEl.classList.add('contact-item');
     let publicInfo = "";
     if (contact.isPrivate) {
@@ -32,7 +32,6 @@ async function handleUserForm(event) {
             await handleUpdate(event);
         }
         closePopup();
-        updateContactView();
     } catch (err) {
         console.error(err);
         alert('Die gewünschte Aktion konnte nicht ausgeführt werden!');
@@ -72,8 +71,7 @@ async function handleUpdate(event) {
     let owner = event.target.owner.value;
     let location = await lookupLatLon({street, zip, city, state, country});
 
-    updateContact({
-        id: selectedContact.id,
+    updateContact(selectedContact._id, {
         firstName, lastName,
         street, zip, city, state, country,
         isPrivate, owner,
@@ -87,15 +85,15 @@ function openPopup(edit) {
     let ownerSelect = document.getElementById('owner');
     ownerSelect.innerHTML = '';
 
-    for (let username in users) {
+    for (let username of users) {
         let ownerOption = document.createElement('option');
-        ownerOption.value = username;
+        ownerOption.value = username.username;
 
-        if (username === loggedUser.username) {
-            ownerOption.innerHTML = `Self (${username})`;
+        if (username.username === loggedUser.username) {
+            ownerOption.innerHTML = `Self (${username.username})`;
             ownerSelect.appendChild(ownerOption);
         } else if (loggedUser.isAdmin) {
-            ownerOption.innerHTML = capitalize(username);
+            ownerOption.innerHTML = capitalize(username.username);
             ownerSelect.appendChild(ownerOption);
         }
     }
@@ -171,9 +169,7 @@ function closePopup() {
 
 function handleDelete() {
     try {
-        deleteContact(selectedContact.id);
-        closePopup();
-        updateContactView();
+        deleteContact(selectedContact._id).then(r => closePopup());
     } catch (err) {
         alert('Die gewünschte Aktion konnte nicht ausgeführt werden!');
     }
